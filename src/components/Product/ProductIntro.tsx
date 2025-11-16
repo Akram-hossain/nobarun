@@ -138,6 +138,7 @@ const ProductIntro: React.FC<ProductIntroProps> = ({ data }) => {
       <a
         href={data?.banglaVersionLink}
         className="product__hero-btn"
+        style={{ marginTop: 0}}
         target="_blank"
       >
         বাংলা ব্লগ পড়ুন
@@ -237,6 +238,7 @@ const ProductIntro: React.FC<ProductIntroProps> = ({ data }) => {
                       ''
                     )}
                   </Box>
+                  {/* for mobile */}
                   {isPhone && banglaVersionHTML}
                 </FlexBox>
               )}
@@ -286,7 +288,14 @@ const ProductIntro: React.FC<ProductIntroProps> = ({ data }) => {
               )}
             </FlexBox>
           </Box>
-          {!isPhone && banglaVersionHTML}
+
+          {/* real image */}
+          {!isPhone && (
+          <div style={{ display: 'flex', alignItems: 'center', width: '18.5%', marginLeft: 0 }}>
+            {documentDownload}
+          </div>
+          )}
+
         </FlexBox>
         <FlexBox flexDirection={width > 900 ? 'row' : 'column'}>
           <FlexBox justifyContent="center" className="product__intro-main">
@@ -313,9 +322,11 @@ const ProductIntro: React.FC<ProductIntroProps> = ({ data }) => {
               <Grid container>
                 {videos}
                 {images}
-                <Grid item xs={12}>
-                  {documentDownload}
-                </Grid>
+
+                {/* for desktop */}
+                <div style={{ width: '100%', textAlign: 'center', marginTop: '1rem' }}>
+                {!isPhone && banglaVersionHTML}
+                </div>
               </Grid>
             ) : (
               <div style={{ width: '100%' }}>
