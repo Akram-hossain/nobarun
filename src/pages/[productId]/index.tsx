@@ -61,10 +61,20 @@ const ProductDetails = ({ schema, slug, product, reviews, reviewCount }) => {
     window.addEventListener('scroll', handleStickyBar);
   }, []);
 
-  useEffect(() => {
-    Client.request(INCREASE_VIEW, { slug: pid });
-    setRecentlyViewedProduct(pid, product);
-  }, []);
+useEffect(() => {
+  if (!pid || !product) return;
+
+  const incrementView = async () => {
+    try {
+      await Client.request(INCREASE_VIEW, { slug: pid });
+      setRecentlyViewedProduct(pid, product);
+    } catch (error) {
+      console.error('Failed to increase view count:', error);
+    }
+  };
+
+  incrementView();
+}, [pid, product]); // Add dependencies
 
   return (
     <Fragment>
